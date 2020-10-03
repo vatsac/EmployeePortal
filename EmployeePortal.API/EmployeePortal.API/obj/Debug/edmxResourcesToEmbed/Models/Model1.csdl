@@ -8,8 +8,48 @@
     <Property Name="Username" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
     <Property Name="PasswordHash" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="PasswordSalt" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Gender" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="KnownAs" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+    <Property Name="LastActive" Type="DateTime" Precision="3" />
+    <Property Name="Introduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LookingFor" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Interests" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Photos" Relationship="EmployeePortalModel.FK_UserId" FromRole="User" ToRole="Photo" />
   </EntityType>
   <EntityContainer Name="EmployeePortalEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Photos" EntityType="EmployeePortalModel.Photo" />
+    <AssociationSet Name="FK_UserId" Association="EmployeePortalModel.FK_UserId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Photo" EntitySet="Photos" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="IsMain" Type="Boolean" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="EmployeePortalModel.FK_UserId" FromRole="Photo" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserId">
+    <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
+    <End Type="EmployeePortalModel.Photo" Role="Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

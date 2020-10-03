@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EmployeePortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Url" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="IsMain" Type="bit" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="Id" />
@@ -8,8 +19,35 @@
     <Property Name="Username" Type="varchar" MaxLength="128" />
     <Property Name="PasswordHash" Type="varbinary(max)" />
     <Property Name="PasswordSalt" Type="varbinary(max)" />
+    <Property Name="Gender" Type="varchar" MaxLength="128" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="KnownAs" Type="varchar" MaxLength="128" />
+    <Property Name="Created" Type="datetime" />
+    <Property Name="LastActive" Type="datetime" />
+    <Property Name="Introduction" Type="varchar(max)" />
+    <Property Name="LookingFor" Type="varchar" MaxLength="128" />
+    <Property Name="Interests" Type="varchar" MaxLength="128" />
+    <Property Name="City" Type="varchar" MaxLength="128" />
+    <Property Name="Country" Type="varchar" MaxLength="128" />
   </EntityType>
+  <Association Name="FK_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="EmployeePortalModelStoreContainer">
+    <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Photo" EntitySet="Photo" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

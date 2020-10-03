@@ -26,5 +26,6 @@ namespace EmployeePortal.API.Models
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
     }
 }

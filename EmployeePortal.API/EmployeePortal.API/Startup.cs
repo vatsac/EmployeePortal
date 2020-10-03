@@ -9,6 +9,8 @@ using Owin;
 
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security;
+using AutoMapper;
+using EmployeePortal.API.App_Start;
 
 [assembly: OwinStartup(typeof(EmployeePortal.API.Startup))]
 
@@ -58,7 +60,12 @@ namespace EmployeePortal.API
 
             ConfigureAuth(app);
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+            //GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
         }
     }
 }

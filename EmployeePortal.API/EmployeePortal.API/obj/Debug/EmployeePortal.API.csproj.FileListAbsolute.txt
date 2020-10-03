@@ -96,3 +96,5 @@ C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePo
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\Microsoft.Owin.Security.Jwt.xml
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\System.Web.Http.Cors.dll
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\System.Web.Http.Cors.xml
+C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\AutoMapper.dll
+C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\AutoMapper.xml
