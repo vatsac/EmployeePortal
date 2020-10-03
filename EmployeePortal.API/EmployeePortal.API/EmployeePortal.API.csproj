@@ -161,6 +161,7 @@
     <Compile Include="Dtos\UserForListDto.cs" />
     <Compile Include="Dtos\UserForLoginDto.cs" />
     <Compile Include="Dtos\UserForRegisterDto.cs" />
+    <Compile Include="Dtos\UserForUpdateDto.cs" />
     <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Interface\IAuthRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
