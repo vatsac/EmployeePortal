@@ -24,7 +24,7 @@ namespace EmployeePortal.API.Interface
 
         Task<Photo> GetMainPhotoForUser(int userId);
 
-        //Task<Likes> GetLike(int userId, int recipientId);
+        Task<Like> GetLike(int userId, int recipientId);
 
         //Task<Message> GetMessage(int id);
 

@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="EmployeePortalModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EmployeePortalModel.Photo" Width="1.5" PointX="3" PointY="1.5" />
         <AssociationConnector Association="EmployeePortalModel.FK_UserId" />
+        <EntityTypeShape EntityType="EmployeePortalModel.Like" Width="1.5" PointX="3" PointY="4.875" />
+        <AssociationConnector Association="EmployeePortalModel.FK_LikeeId" />
+        <AssociationConnector Association="EmployeePortalModel.FK_likerId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

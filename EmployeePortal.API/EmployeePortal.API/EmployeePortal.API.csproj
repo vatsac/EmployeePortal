@@ -177,6 +177,9 @@
     <Compile Include="Helper\UserParams.cs" />
     <Compile Include="Interface\IAuthRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
+    <Compile Include="Models\Like.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

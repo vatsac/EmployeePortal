@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="EmployeePortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LikerId" Type="int" Nullable="false" />
+          <Property Name="LikeeId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Photo">
           <Key>
             <PropertyRef Name="Id" />
@@ -36,6 +44,30 @@
           <Property Name="City" Type="varchar" MaxLength="128" />
           <Property Name="Country" Type="varchar" MaxLength="128" />
         </EntityType>
+        <Association Name="FK_LikeeId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="LikeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_likerId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="LikerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserId">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
@@ -49,8 +81,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EmployeePortalModelStoreContainer">
+          <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LikeeId" Association="Self.FK_LikeeId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_likerId" Association="Self.FK_likerId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
             <End Role="Users" EntitySet="Users" />
             <End Role="Photo" EntitySet="Photo" />
@@ -79,6 +120,8 @@
           <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Photos" Relationship="EmployeePortalModel.FK_UserId" FromRole="User" ToRole="Photo" />
+          <NavigationProperty Name="Likes" Relationship="EmployeePortalModel.FK_LikeeId" FromRole="User" ToRole="Like" />
+          <NavigationProperty Name="Likes1" Relationship="EmployeePortalModel.FK_likerId" FromRole="User" ToRole="Like" />
         </EntityType>
         <EntityContainer Name="EmployeePortalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -86,6 +129,15 @@
           <AssociationSet Name="FK_UserId" Association="EmployeePortalModel.FK_UserId">
             <End Role="User" EntitySet="Users" />
             <End Role="Photo" EntitySet="Photos" />
+          </AssociationSet>
+          <EntitySet Name="Likes" EntityType="EmployeePortalModel.Like" />
+          <AssociationSet Name="FK_LikeeId" Association="EmployeePortalModel.FK_LikeeId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_likerId" Association="EmployeePortalModel.FK_likerId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Like" EntitySet="Likes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Photo">
@@ -110,6 +162,40 @@
             </Principal>
             <Dependent Role="Photo">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LikerId" Type="Int32" Nullable="false" />
+          <Property Name="LikeeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="EmployeePortalModel.FK_LikeeId" FromRole="Like" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="EmployeePortalModel.FK_likerId" FromRole="Like" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_LikeeId">
+          <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
+          <End Type="EmployeePortalModel.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_likerId">
+          <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
+          <End Type="EmployeePortalModel.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -148,6 +234,15 @@
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Likes">
+            <EntityTypeMapping TypeName="EmployeePortalModel.Like">
+              <MappingFragment StoreEntitySet="Likes">
+                <ScalarProperty Name="LikeeId" ColumnName="LikeeId" />
+                <ScalarProperty Name="LikerId" ColumnName="LikerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

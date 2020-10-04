@@ -34,5 +34,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="EmployeePortalModel.Like">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="LikeeId" ColumnName="LikeeId" />
+          <ScalarProperty Name="LikerId" ColumnName="LikerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

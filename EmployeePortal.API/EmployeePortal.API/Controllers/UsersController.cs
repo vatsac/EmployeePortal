@@ -36,8 +36,14 @@ namespace EmployeePortal.API.Controllers
 
             var userFromRepo = await _repo.GetUser(currentUserId);
 
+            userFromRepo.LastActive = DateTime.Now;
+            db.Entry(userFromRepo).State = EntityState.Modified;           // data is updated in database
+            await db.SaveChangesAsync();
+
             userParams.UserId = currentUserId;
-            
+           // changes is commiteed in data base
+
+
             var users = await _repo.GetUsers(userParams);
 
             var usersToReturn = Mapper.Map<IEnumerable<UserForListDto>>(users);
@@ -52,6 +58,12 @@ namespace EmployeePortal.API.Controllers
         [Route("api/users/{id}",Name ="GetUser")]
         public async Task<IHttpActionResult> GetUser(int id)
         {
+            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            userFromRepo.LastActive = DateTime.Now;
+            db.Entry(userFromRepo).State = EntityState.Modified;           // data is updated in database
+            await db.SaveChangesAsync();
+
             var user = await _repo.GetUser(id);
 
             var userToReturn = Mapper.Map<UserForDetailedDto>(user);
@@ -62,8 +74,11 @@ namespace EmployeePortal.API.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> UpdateUser(int id,[FromBody] UserForUpdateDto userForUpdateDto)
         {
-            //if (id != int.Parse(User.Identity.Name))
-              //  return Unauthorized();
+            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var userFromRepoClaim = await _repo.GetUser(currentUserId);
+            userFromRepoClaim.LastActive = DateTime.Now;
+            db.Entry(userFromRepoClaim).State = EntityState.Modified;           // data is updated in database
+            await db.SaveChangesAsync();
 
             var userFromRepo = await _repo.GetUser(id);
 
@@ -79,6 +94,35 @@ namespace EmployeePortal.API.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
 
             throw new Exception($"Updating user {id} failed on save");
+        }
+
+        [HttpPost]
+        [Route("api/users/{id}/like/{recipientId}")]
+        public async Task<IHttpActionResult> LikeUser(int id, int recipientId)
+        {
+            //if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //    return Unauthorized();
+
+            var like = await _repo.GetLike(id, recipientId);
+
+            if (like != null)
+                return BadRequest("You already like this user");
+
+            if (await _repo.GetUser(recipientId) == null)
+                return NotFound();
+
+            like = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientId
+            };
+
+            db.Likes.Add(like);
+
+            db.SaveChanges();
+            return Ok();
+
+           // return BadRequest("Failed to like user");
         }
 
     }
