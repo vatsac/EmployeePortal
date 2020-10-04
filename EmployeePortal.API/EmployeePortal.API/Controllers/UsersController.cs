@@ -37,7 +37,7 @@ namespace EmployeePortal.API.Controllers
         }
 
         [HttpGet]
-
+        [Route("api/users/{id}",Name ="GetUser")]
         public async Task<IHttpActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);

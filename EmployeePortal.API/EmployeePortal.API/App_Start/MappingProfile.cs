@@ -29,6 +29,7 @@ namespace EmployeePortal.API.App_Start
             Mapper.CreateMap<UserForUpdateDto, User>();
             Mapper.CreateMap<Photo, PhotoForReturnDto>();
             Mapper.CreateMap<PhotoForCreationDto, Photo>();
+            Mapper.CreateMap<UserForRegisterDto, User>();
         }
     }
 }
