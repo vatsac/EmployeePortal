@@ -32,6 +32,12 @@ namespace EmployeePortal.API.Controllers
         //[Route("api/user")]
         public async Task<IHttpActionResult> GetUsers([FromUri]UserParams userParams)
         {
+            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUserId);
+
+            userParams.UserId = currentUserId;
+            
             var users = await _repo.GetUsers(userParams);
 
             var usersToReturn = Mapper.Map<IEnumerable<UserForListDto>>(users);

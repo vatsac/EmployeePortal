@@ -61,8 +61,30 @@ namespace EmployeePortal.API.Repository
         {
             using (EmployeePortalEntities _context = new EmployeePortalEntities())
             {
-                var users = _context.Users.Include(p => p.Photos);
+                var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
 
+                users = users.Where(u => u.Id != userParams.UserId);
+
+                if (userParams.MinAge != 0 || userParams.MaxAge != 99)
+                {
+                    var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+                    var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+
+                    users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+                }
+
+                if (!string.IsNullOrEmpty(userParams.OrderBy))
+                {
+                    switch (userParams.OrderBy)
+                    {
+                        case "created":
+                            users = users.OrderByDescending(u => u.Created);
+                            break;
+                        default:
+                            users = users.OrderByDescending(u => u.LastActive);
+                            break;
+                    }
+                }
                 return await PagedList<User>.CreateAsync(users.OrderBy(u=>u.Id), userParams.PageNumber, userParams.PageSize);
             }
         }
