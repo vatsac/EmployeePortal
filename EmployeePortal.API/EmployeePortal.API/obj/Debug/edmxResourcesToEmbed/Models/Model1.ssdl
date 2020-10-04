@@ -10,6 +10,7 @@
     <Property Name="DateAdded" Type="datetime" />
     <Property Name="IsMain" Type="bit" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="PublicID" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

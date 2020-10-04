@@ -15,6 +15,7 @@
           <Property Name="DateAdded" Type="datetime" />
           <Property Name="IsMain" Type="bit" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PublicID" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -98,6 +99,7 @@
           <Property Name="IsMain" Type="Boolean" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="EmployeePortalModel.FK_UserId" FromRole="Photo" ToRole="User" />
+          <Property Name="PublicID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_UserId">
           <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
@@ -140,6 +142,7 @@
           <EntitySetMapping Name="Photos">
             <EntityTypeMapping TypeName="EmployeePortalModel.Photo">
               <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="PublicID" ColumnName="PublicID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="IsMain" ColumnName="IsMain" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />

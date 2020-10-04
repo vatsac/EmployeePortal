@@ -24,6 +24,7 @@
     <EntitySetMapping Name="Photos">
       <EntityTypeMapping TypeName="EmployeePortalModel.Photo">
         <MappingFragment StoreEntitySet="Photo">
+          <ScalarProperty Name="PublicID" ColumnName="PublicID" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="IsMain" ColumnName="IsMain" />
           <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />

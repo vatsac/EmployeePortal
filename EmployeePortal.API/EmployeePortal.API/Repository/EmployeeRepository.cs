@@ -27,6 +27,25 @@ namespace EmployeePortal.API.Repository
             }
         }
 
+        public async Task<Photo> GetMainPhotoForUser(int userId)
+        {
+            using (EmployeePortalEntities _context = new EmployeePortalEntities())
+            {
+                return await _context.Photos.Where(u => u.UserId == userId)
+                          .FirstOrDefaultAsync(p => (bool)p.IsMain);
+            }
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            using (EmployeePortalEntities _context = new EmployeePortalEntities())
+            {
+                var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+                return photo;
+            }
+        }
+
         public async Task<User> GetUser(int id)
         {
             using (EmployeePortalEntities _context = new EmployeePortalEntities())

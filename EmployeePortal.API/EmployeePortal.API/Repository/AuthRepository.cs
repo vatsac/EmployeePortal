@@ -15,7 +15,7 @@ namespace EmployeePortal.API.Repository
         {
             using (EmployeePortalEntities _context = new EmployeePortalEntities())
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+                var user = await _context.Users.Include(p=>p.Photos).FirstOrDefaultAsync(x => x.Username == username);
 
                 if (user == null)
                     return null;

@@ -39,6 +39,7 @@
     <Property Name="IsMain" Type="Boolean" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="User" Relationship="EmployeePortalModel.FK_UserId" FromRole="Photo" ToRole="User" />
+    <Property Name="PublicID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_UserId">
     <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />

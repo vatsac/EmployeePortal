@@ -20,6 +20,7 @@ namespace EmployeePortal.API.Models
         public Nullable<System.DateTime> DateAdded { get; set; }
         public Nullable<bool> IsMain { get; set; }
         public int UserId { get; set; }
+        public string PublicID { get; set; }
     
         public virtual User User { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using EmployeePortal.API.Dtos;
+﻿using AutoMapper;
+using EmployeePortal.API.Dtos;
 using EmployeePortal.API.Interface;
 using EmployeePortal.API.Models;
 using EmployeePortal.API.Repository;
@@ -76,12 +77,12 @@ namespace EmployeePortal.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            //var user = _mapper.Map<UserForListDto>(userFromRepo);
+            var user = Mapper.Map<UserForListDto>(userFromRepo);
 
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-               // user
+                user
 
             });
         }

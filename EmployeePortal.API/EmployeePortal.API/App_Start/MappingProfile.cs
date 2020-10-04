@@ -27,6 +27,8 @@ namespace EmployeePortal.API.App_Start
               opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             Mapper.CreateMap<Photo, PhotosForDetailedDto>();
             Mapper.CreateMap<UserForUpdateDto, User>();
+            Mapper.CreateMap<Photo, PhotoForReturnDto>();
+            Mapper.CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }
