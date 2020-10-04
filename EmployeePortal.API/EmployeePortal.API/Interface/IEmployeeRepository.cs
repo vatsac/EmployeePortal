@@ -1,4 +1,5 @@
-﻿using EmployeePortal.API.Models;
+﻿using EmployeePortal.API.Helper;
+using EmployeePortal.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace EmployeePortal.API.Interface
 
         Task<bool> SaveAll();
 
-        Task<IEnumerable<User>> GetUsers();
+        Task<PagedList<User>> GetUsers(UserParams userParams);
 
         Task<User> GetUser(int id);
 

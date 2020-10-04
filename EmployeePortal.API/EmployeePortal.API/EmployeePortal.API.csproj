@@ -125,6 +125,9 @@
     <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -169,6 +172,9 @@
     <Compile Include="Dtos\UserForRegisterDto.cs" />
     <Compile Include="Dtos\UserForUpdateDto.cs" />
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Helper\PagedList.cs" />
+    <Compile Include="Helper\PaginationHeader.cs" />
+    <Compile Include="Helper\UserParams.cs" />
     <Compile Include="Interface\IAuthRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
     <Compile Include="Models\Model1.Context.cs">

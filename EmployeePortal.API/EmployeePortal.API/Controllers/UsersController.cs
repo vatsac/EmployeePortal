@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmployeePortal.API.Dtos;
+using EmployeePortal.API.Helper;
 using EmployeePortal.API.Interface;
 using EmployeePortal.API.Models;
 using EmployeePortal.API.Repository;
@@ -11,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -18,20 +20,24 @@ namespace EmployeePortal.API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize]
+   // [LogUser]
     public class UsersController : ApiController
     {
         private readonly IEmployeeRepository _repo = new EmployeeRepository();
 
         private EmployeePortalEntities db = new EmployeePortalEntities();
-
+        
 
         [HttpGet]
         //[Route("api/user")]
-        public async Task<IHttpActionResult> GetUsers()
+        public async Task<IHttpActionResult> GetUsers([FromUri]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var users = await _repo.GetUsers(userParams);
 
             var usersToReturn = Mapper.Map<IEnumerable<UserForListDto>>(users);
+
+            //HttpResponse Response=null;
+            HttpContext.Current.Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(usersToReturn);
         }

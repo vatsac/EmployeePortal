@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Data.Entity;
+using EmployeePortal.API.Helper;
 
 namespace EmployeePortal.API.Repository
 {
@@ -56,13 +57,13 @@ namespace EmployeePortal.API.Repository
             }
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
             using (EmployeePortalEntities _context = new EmployeePortalEntities())
             {
-                var users = await _context.Users.Include(p => p.Photos).ToListAsync();
+                var users = _context.Users.Include(p => p.Photos);
 
-                return users;
+                return await PagedList<User>.CreateAsync(users.OrderBy(u=>u.Id), userParams.PageNumber, userParams.PageSize);
             }
         }
 
