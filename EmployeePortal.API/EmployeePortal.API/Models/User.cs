@@ -20,6 +20,8 @@ namespace EmployeePortal.API.Models
             this.Photos = new HashSet<Photo>();
             this.Likes = new HashSet<Like>();
             this.Likes1 = new HashSet<Like>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
         }
     
         public int Id { get; set; }
@@ -43,5 +45,9 @@ namespace EmployeePortal.API.Models
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages1 { get; set; }
     }
 }

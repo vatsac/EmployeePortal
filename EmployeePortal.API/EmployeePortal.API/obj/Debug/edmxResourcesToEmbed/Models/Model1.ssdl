@@ -8,6 +8,20 @@
     <Property Name="LikerId" Type="int" Nullable="false" />
     <Property Name="LikeeId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderId" Type="int" Nullable="false" />
+    <Property Name="RecipientId" Type="int" Nullable="false" />
+    <Property Name="Content" Type="varchar(max)" />
+    <Property Name="IsRead" Type="bit" Nullable="false" />
+    <Property Name="DateRead" Type="datetime" />
+    <Property Name="MessageSent" Type="datetime" Nullable="false" />
+    <Property Name="SenderDeleted" Type="bit" Nullable="false" />
+    <Property Name="RecipientDeleted" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Photo">
     <Key>
       <PropertyRef Name="Id" />
@@ -63,6 +77,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RecipientId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SenderId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserId">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
@@ -77,6 +115,7 @@
   </Association>
   <EntityContainer Name="EmployeePortalModelStoreContainer">
     <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_LikeeId" Association="Self.FK_LikeeId">
@@ -86,6 +125,14 @@
     <AssociationSet Name="FK_likerId" Association="Self.FK_likerId">
       <End Role="Users" EntitySet="Users" />
       <End Role="Likes" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecipientId" Association="Self.FK_RecipientId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SenderId" Association="Self.FK_SenderId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Message" />
     </AssociationSet>
     <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
       <End Role="Users" EntitySet="Users" />

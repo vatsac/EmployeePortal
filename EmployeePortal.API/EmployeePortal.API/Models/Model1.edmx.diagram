@@ -11,6 +11,9 @@
         <EntityTypeShape EntityType="EmployeePortalModel.Like" Width="1.5" PointX="3" PointY="4.875" />
         <AssociationConnector Association="EmployeePortalModel.FK_LikeeId" />
         <AssociationConnector Association="EmployeePortalModel.FK_likerId" />
+        <EntityTypeShape EntityType="EmployeePortalModel.Message" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="EmployeePortalModel.FK_RecipientId" />
+        <AssociationConnector Association="EmployeePortalModel.FK_SenderId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -43,5 +43,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="EmployeePortalModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="RecipientDeleted" ColumnName="RecipientDeleted" />
+          <ScalarProperty Name="SenderDeleted" ColumnName="SenderDeleted" />
+          <ScalarProperty Name="MessageSent" ColumnName="MessageSent" />
+          <ScalarProperty Name="DateRead" ColumnName="DateRead" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

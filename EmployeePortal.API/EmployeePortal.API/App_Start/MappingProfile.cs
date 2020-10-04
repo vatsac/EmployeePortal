@@ -30,6 +30,12 @@ namespace EmployeePortal.API.App_Start
             Mapper.CreateMap<Photo, PhotoForReturnDto>();
             Mapper.CreateMap<PhotoForCreationDto, Photo>();
             Mapper.CreateMap<UserForRegisterDto, User>();
+            Mapper.CreateMap<MessageForCreationDto, Message>().ReverseMap();
+            Mapper.CreateMap<Message, MessageToReturnDto>();
+            //    .ForMember(m => m.SenderPhotoUrl, opt => opt.MapFrom(u => u.User.Photos.FirstOrDefault(p => (bool)p.IsMain).Url))
+            //.ForMember(m => m.RecipientPhotoUrl, opt => opt.MapFrom(u => u.User1.Photos.FirstOrDefault(p => (bool)p.IsMain).Url));
+            //.ForMember(m => m.SenderKnownAs, opt => opt.MapFrom(u => u.User.KnownAs))
+            //.ForMember(m => m.RecipientKnownAs, opt => opt.MapFrom(u => u.User1.KnownAs)); 
         }
     }
 }

@@ -138,5 +138,58 @@ namespace EmployeePortal.API.Repository
                 return await _context.SaveChangesAsync() > 0;
             }
         }
+
+        public async Task<Message> GetMessage(int id)
+        {
+            using (EmployeePortalEntities _context = new EmployeePortalEntities())
+            {
+                return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            }
+        }
+
+        public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
+        {
+            using (EmployeePortalEntities _context = new EmployeePortalEntities())
+            {
+                //.Include(p => p.PostAuthor.Select(pa => pa.Author).Select(a => a.Interests))
+                var messages = _context.Messages
+            .Include(u => u.User).Include(u => u.User.Photos)
+            .Include(u => u.User1).Include(u => u.User.Photos)
+            .AsQueryable();
+
+                switch (messageParams.MessageContainer)
+                {
+                    case "Inbox":
+                        messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.RecipientDeleted == false);
+                        break;
+                    case "Outbox":
+                        messages = messages.Where(u => u.SenderId == messageParams.UserId && u.SenderDeleted == false);
+                        break;
+                    default:
+                        messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.RecipientDeleted == false && u.IsRead == false);
+                        break;
+                }
+
+                messages = messages.OrderByDescending(d => d.MessageSent);
+                return await PagedList<Message>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+            }
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        {
+            using (EmployeePortalEntities _context = new EmployeePortalEntities())
+            {
+                var messages = await _context.Messages
+                     .Include(u => u.User).Include(p => p.User.Photos)
+                     .Include(u => u.User1).Include(p => p.User1.Photos)
+                     .Where(m => m.RecipientId == userId && m.RecipientDeleted == false && m.SenderId == recipientId ||
+                      m.RecipientId == recipientId && m.SenderId == userId && m.SenderDeleted == false)
+                      .OrderByDescending(m => m.MessageSent)
+                      .ToListAsync();
+
+                return messages;
+            }
+
+        }
     }
 }

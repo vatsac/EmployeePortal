@@ -21,6 +21,8 @@
     <NavigationProperty Name="Photos" Relationship="EmployeePortalModel.FK_UserId" FromRole="User" ToRole="Photo" />
     <NavigationProperty Name="Likes" Relationship="EmployeePortalModel.FK_LikeeId" FromRole="User" ToRole="Like" />
     <NavigationProperty Name="Likes1" Relationship="EmployeePortalModel.FK_likerId" FromRole="User" ToRole="Like" />
+    <NavigationProperty Name="Messages" Relationship="EmployeePortalModel.FK_RecipientId" FromRole="User" ToRole="Message" />
+    <NavigationProperty Name="Messages1" Relationship="EmployeePortalModel.FK_SenderId" FromRole="User" ToRole="Message" />
   </EntityType>
   <EntityContainer Name="EmployeePortalEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Users" EntityType="Self.User" />
@@ -37,6 +39,15 @@
     <AssociationSet Name="FK_likerId" Association="EmployeePortalModel.FK_likerId">
       <End Role="User" EntitySet="Users" />
       <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <EntitySet Name="Messages" EntityType="EmployeePortalModel.Message" />
+    <AssociationSet Name="FK_RecipientId" Association="EmployeePortalModel.FK_RecipientId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SenderId" Association="EmployeePortalModel.FK_SenderId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Photo">
@@ -95,6 +106,46 @@
       </Principal>
       <Dependent Role="Like">
         <PropertyRef Name="LikerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderId" Type="Int32" Nullable="false" />
+    <Property Name="RecipientId" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsRead" Type="Boolean" Nullable="false" />
+    <Property Name="DateRead" Type="DateTime" Precision="3" />
+    <Property Name="MessageSent" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SenderDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="RecipientDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="EmployeePortalModel.FK_RecipientId" FromRole="Message" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="EmployeePortalModel.FK_SenderId" FromRole="Message" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_RecipientId">
+    <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
+    <End Type="EmployeePortalModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SenderId">
+    <End Type="EmployeePortalModel.User" Role="User" Multiplicity="1" />
+    <End Type="EmployeePortalModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="SenderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

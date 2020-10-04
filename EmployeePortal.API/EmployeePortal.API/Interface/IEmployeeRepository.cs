@@ -26,10 +26,10 @@ namespace EmployeePortal.API.Interface
 
         Task<Like> GetLike(int userId, int recipientId);
 
-        //Task<Message> GetMessage(int id);
+        Task<Message> GetMessage(int id);
 
-        //Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
+        Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
 
-        //Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
     }
 }

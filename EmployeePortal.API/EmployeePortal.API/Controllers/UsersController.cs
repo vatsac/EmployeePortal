@@ -72,13 +72,14 @@ namespace EmployeePortal.API.Controllers
         }
 
         [HttpPut]
+        [Route("api/users/{id}")]
         public async Task<IHttpActionResult> UpdateUser(int id,[FromBody] UserForUpdateDto userForUpdateDto)
         {
-            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            var userFromRepoClaim = await _repo.GetUser(currentUserId);
-            userFromRepoClaim.LastActive = DateTime.Now;
-            db.Entry(userFromRepoClaim).State = EntityState.Modified;           // data is updated in database
-            await db.SaveChangesAsync();
+            //var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            //var userFromRepoClaim = await _repo.GetUser(currentUserId);
+            //userFromRepoClaim.LastActive = DateTime.Now;
+            //db.Entry(userFromRepoClaim).State = EntityState.Modified;           // data is updated in database
+            //await db.SaveChangesAsync();
 
             var userFromRepo = await _repo.GetUser(id);
 

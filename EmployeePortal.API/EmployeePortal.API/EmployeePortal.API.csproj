@@ -161,8 +161,11 @@
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Dtos\MessageForCreationDto.cs" />
+    <Compile Include="Dtos\MessageToReturnDto.cs" />
     <Compile Include="Dtos\PhotoForCreationDto.cs" />
     <Compile Include="Dtos\PhotoForReturnDto.cs" />
     <Compile Include="Dtos\PhotosForDetailedDto.cs" />
@@ -172,12 +175,16 @@
     <Compile Include="Dtos\UserForRegisterDto.cs" />
     <Compile Include="Dtos\UserForUpdateDto.cs" />
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Helper\MessageParams.cs" />
     <Compile Include="Helper\PagedList.cs" />
     <Compile Include="Helper\PaginationHeader.cs" />
     <Compile Include="Helper\UserParams.cs" />
     <Compile Include="Interface\IAuthRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
     <Compile Include="Models\Like.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
