@@ -110,6 +110,7 @@ namespace EmployeePortal.API.Controllers
         [Route("api/users/{userId}/messages")]
         public async Task<IHttpActionResult> CreateMessage(int userId,[FromBody] MessageForCreationDto messageForCreationDto)
         {
+            var sender = await _repo.GetUser(userId);
             var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             var userFromRepo = await _repo.GetUser(currentUserId);
@@ -119,7 +120,6 @@ namespace EmployeePortal.API.Controllers
             await db.SaveChangesAsync();
 
             messageForCreationDto.SenderId = userId;
-            var sender = await _repo.GetUser(userId);
 
             var recipient = await _repo.GetUser(messageForCreationDto.RecipientId);
 
@@ -132,11 +132,67 @@ namespace EmployeePortal.API.Controllers
 
             db.SaveChanges();
             
-               var messageToReturn = Mapper.Map<MessageForCreationDto>(message);
+             var messageToReturn = Mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new { userId, id = message.Id }, messageToReturn);
             
 
         }
+
+        [HttpPost]
+        [Route("api/users/{userId}/messages/{id}")]
+        public async Task<IHttpActionResult> DeleteMessage(int id, int userId)
+        {
+            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUserId);
+
+            userFromRepo.LastActive = DateTime.Now;
+            db.Entry(userFromRepo).State = EntityState.Modified;           // data is updated in database
+            await db.SaveChangesAsync();
+
+            var messageFromRepo = await _repo.GetMessage(id);
+
+            if (messageFromRepo.SenderId == userId)
+                messageFromRepo.SenderDeleted = true;
+
+            if (messageFromRepo.RecipientId == userId)
+                messageFromRepo.RecipientDeleted = true;
+
+            if (messageFromRepo.SenderDeleted && messageFromRepo.RecipientDeleted)
+                db.Entry(messageFromRepo).State = EntityState.Deleted;
+
+            db.SaveChanges();
+                return StatusCode(HttpStatusCode.NoContent);
+
+            throw new Exception("Error deleting the message");
+        }
+
+        [HttpPost]
+        [Route("api/users/{userId}/messages/{id}/read")]
+        public async Task<IHttpActionResult> MarkMessageAsRead(int userId, int id)
+        {
+            var currentUserId = int.Parse(ClaimsPrincipal.Current.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUserId);
+
+            userFromRepo.LastActive = DateTime.Now;
+            db.Entry(userFromRepo).State = EntityState.Modified;           // data is updated in database
+            await db.SaveChangesAsync();
+
+            var message = await _repo.GetMessage(id);
+
+            if (message.RecipientId != userId)
+                return Unauthorized();
+
+            message.IsRead = true;
+            message.DateRead = DateTime.Now;
+            db.Entry(message).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return StatusCode(HttpStatusCode.NoContent);
+
+        }
+
 
 
 

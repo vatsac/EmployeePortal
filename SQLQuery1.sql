@@ -41,3 +41,29 @@ INSERT INTO Photo(Url,IsMain,Description,UserId) VALUES
 ,('https://randomuser.me/api/portraits/men/96.jpg','true','Magna duis consectetur sit ut commodo non eiusmod.',2)
 ,('https://randomuser.me/api/portraits/men/4.jpg','true','Cupidatat veniam ea magna cillum velit minim non minim tempor ipsum excepteur.',3)
 ,('https://randomuser.me/api/portraits/men/76.jpg','true','Amet officia enim pariatur mollit tempor in ut.',4)
+
+create table Likes (
+   Id int primary key identity,
+   LikerId int Not Null
+  Constraint FK_likerId Foreign Key(LikerId)
+  references Users(Id),
+  LikeeId int Not Null
+  Constraint FK_LikeeId Foreign Key(LikeeId)
+  references Users(Id))
+
+  create table Message(
+
+Id int identity primary key,
+SenderId int Not Null
+Constraint FK_SenderId Foreign Key(SenderId)
+references Users(Id),
+RecipientId int Not Null
+Constraint FK_RecipientId Foreign Key(RecipientId)
+references Users(Id),
+Content Varchar(max),
+IsRead bit not null default 'false',
+DateRead DateTime,
+MessageSent DateTime Not Null default GETDATE(),
+SenderDeleted bit not null default 'false',
+RecipientDeleted bit not null default 'false'
+)
