@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmployeePortalModelStoreContainer" CdmEntityContainer="EmployeePortalEntities">
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="EmployeePortalModel.Like">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LikerId" ColumnName="LikerId" />
+          <ScalarProperty Name="LikeeId" ColumnName="LikeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="EmployeePortalModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+          <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="DateRead" ColumnName="DateRead" />
+          <ScalarProperty Name="MessageSent" ColumnName="MessageSent" />
+          <ScalarProperty Name="SenderDeleted" ColumnName="SenderDeleted" />
+          <ScalarProperty Name="RecipientDeleted" ColumnName="RecipientDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Photos">
+      <EntityTypeMapping TypeName="EmployeePortalModel.Photo">
+        <MappingFragment StoreEntitySet="Photo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PublicID" ColumnName="PublicID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="EmployeePortalModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EmployeePortalModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="KnownAs" ColumnName="KnownAs" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="LastActive" ColumnName="LastActive" />
+          <ScalarProperty Name="Introduction" ColumnName="Introduction" />
+          <ScalarProperty Name="LookingFor" ColumnName="LookingFor" />
+          <ScalarProperty Name="Interests" ColumnName="Interests" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

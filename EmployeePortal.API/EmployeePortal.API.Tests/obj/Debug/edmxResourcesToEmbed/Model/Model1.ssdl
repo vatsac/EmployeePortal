@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeePortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Likes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LikerId" Type="int" Nullable="false" />
+    <Property Name="LikeeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderId" Type="int" Nullable="false" />
+    <Property Name="RecipientId" Type="int" Nullable="false" />
+    <Property Name="Content" Type="varchar(max)" />
+    <Property Name="IsRead" Type="bit" Nullable="false" />
+    <Property Name="DateRead" Type="datetime" />
+    <Property Name="MessageSent" Type="datetime" Nullable="false" />
+    <Property Name="SenderDeleted" Type="bit" Nullable="false" />
+    <Property Name="RecipientDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Url" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="IsMain" Type="bit" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="PublicID" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="128" />
+    <Property Name="PasswordHash" Type="varbinary(max)" />
+    <Property Name="PasswordSalt" Type="varbinary(max)" />
+    <Property Name="Gender" Type="varchar" MaxLength="128" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="KnownAs" Type="varchar" MaxLength="128" />
+    <Property Name="Created" Type="datetime" />
+    <Property Name="LastActive" Type="datetime" />
+    <Property Name="Introduction" Type="varchar(max)" />
+    <Property Name="LookingFor" Type="varchar" MaxLength="128" />
+    <Property Name="Interests" Type="varchar" MaxLength="128" />
+    <Property Name="City" Type="varchar" MaxLength="128" />
+    <Property Name="Country" Type="varchar" MaxLength="128" />
+  </EntityType>
+  <Association Name="FK_LikeeId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Likes">
+        <PropertyRef Name="LikeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_likerId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Likes">
+        <PropertyRef Name="LikerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecipientId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SenderId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmployeePortalModelStoreContainer">
+    <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_LikeeId" Association="Self.FK_LikeeId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Likes" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_likerId" Association="Self.FK_likerId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Likes" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecipientId" Association="Self.FK_RecipientId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SenderId" Association="Self.FK_SenderId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Photo" EntitySet="Photo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

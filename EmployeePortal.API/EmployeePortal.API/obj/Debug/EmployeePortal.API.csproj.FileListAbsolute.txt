@@ -1,4 +1,3 @@
-C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\obj\Debug\EmployeePortal.API.csprojAssemblyReference.cache
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\obj\Debug\EmployeePortal.API.csproj.CoreCompileInputs.cache
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\EmployeePortal.API.dll.config
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\EmployeePortal.API.dll
@@ -100,3 +99,4 @@ C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePo
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\CloudinaryDotNet.dll
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\System.Web.Http.Owin.dll
 C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\bin\System.Web.Http.Owin.xml
+C:\Users\Aditya Kumar\Documents\study material\Project\EmployeePortal\EmployeePortal.API\EmployeePortal.API\obj\Debug\EmployeePortal.API.csprojAssemblyReference.cache

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c656c022359341f59a2c34a9c9541560" Name="Diagram1">
+        <EntityTypeShape EntityType="EmployeePortalModel.Like" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeePortalModel.Message" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeePortalModel.Photo" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeePortalModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeePortalModel.User" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="EmployeePortalModel.FK_LikeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeePortalModel.FK_likerId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeePortalModel.FK_RecipientId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeePortalModel.FK_SenderId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeePortalModel.FK_UserId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

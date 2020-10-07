@@ -22,7 +22,7 @@ namespace EmployeePortal.API.Helper
 
         public int MinAge { get; set; } = 0;
 
-        public int MaxAge { get; set; } = 99;
+        public int MaxAge { get; set; } = 38;
 
         public string OrderBy { get; set; }
 
